@@ -1,2 +1,2 @@
-# JsSiteTemplate
-Mini site template for JS projects.
+# No Lemon / No Melon
+A palindrome detector.
