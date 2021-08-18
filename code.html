@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
   <head>
-    <title>AppName: A Coding Project by Michael Robinson</title>
+    <title>NO LEMON NO MELON: A Coding Project by Michael Robinson</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -20,6 +20,13 @@
       src="https://kit.fontawesome.com/5db21ba9c6.js"
       crossorigin="anonymous"
     ></script>
+
+    <!--Amatic Font-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!--Custom Stylesheet-->
     <link href="./css/site.css" rel="stylesheet" />
@@ -63,14 +70,14 @@
     <!--==== Nav Section ====-->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"
+        <a class="navbar-brand d-flex align-items-center" href="index.html"
           ><img
             src="./img/favicon.svg"
             class="d-inline-block align-text-top"
             alt="double-m icon"
             width="30"
           />
-          <span class="ps-2">APP NAME</span>
+          <span class="logo ps-3">NO LEMON NO MELON</span>
         </a>
         <button
           class="navbar-toggler"
@@ -99,7 +106,7 @@
             <li class="nav-item">
               <a
                 class="nav-link"
-                href="https://github.com/mikeTheMSFan/"
+                href="https://github.com/mikeTheMSFan/NOLEMONNOMELON"
                 target="_blank"
                 >Git Repo</a
               >
@@ -119,26 +126,90 @@
     <!--==== Main Section ====-->
     <main class="flex-shrink-0">
       <div class="container py-4 px-5 mt-5">
-        <h2 class="border-1 border-bottom border-dark"
-          >The Code for the APP NAME</h2
+        <h2 class="title border-1 border-bottom border-dark"
+          >The Code for the NO LEMON NO MELON app</h2
         >
         <div class="row row-cols-1 row-cols-lg-2">
           <div class="col-lg-8">
             <pre class="line-numbers">
                   <code class="language-javascript">
-                    // Call Hello World
-                    function helloWorld() {
-                      alert('Hello World');
+                    'use strict';
+
+                    //Get values from UI
+                    function getValues() {
+                      const inputValue = document.getElementById('userString').value;
+                      const isPalindromeCheck = palindromeCheck(inputValue);
+                      displayResults(isPalindromeCheck);
                     }
+                    //Check to see if word is palindrome
+                    function palindromeCheck(inputVal) {
+                      //Matches anything that is A-Z, a-z, and 0-9. Also searches globally.
+                      const sub = /[^A-Za-z0-9]/g;
+                    
+                      //Takes the array and turns it into a string for parsing
+                      let formattedString = inputVal;
+                      //Changes all letters to lower case
+                      formattedString = formattedString.toLowerCase();
+                      //Uses the regEx expression to remove anything that doesnt match.
+                      formattedString = formattedString.replace(sub, '');
+                    
+                      //splits the formmating string into an array of characters, reverses the array,
+                      //and joins the reverse array to form the reversed string
+                      const reverseFormattedString = formattedString.split('').reverse('').join('');
+                    
+                      //returns true or false based on the result of the comparison.
+                      return formattedString === reverseFormattedString;
+                    }
+                    //Display result to user
+                    function displayResults(isPal) {
+                      if (isPal) {
+                        document.getElementById('msg').innerHTML = `A palindrome! 🎉🎉🎉🎉`;
+                    
+                        //show the alert box
+                        document.getElementById('alert').classList.remove('alert-danger');
+                        document.getElementById('alert').classList.add('alert-success');
+                        document.getElementById('alert').classList.remove('invisible');
+                      } else {
+                        document.getElementById('msg').innerHTML = `Not a palindrome 😟😟😟😟`;
+                    
+                        //show the alert box
+                        document.getElementById('alert').classList.remove('alert-success');
+                        document.getElementById('alert').classList.add('alert-danger');
+                        document.getElementById('alert').classList.remove('invisible');
+                      }
+                    }                                        
                   </code>
               </pre>
           </div>
           <div class="col-lg-4">
-            <p>The Code is structured in one function</p>
-            <h5>Hello World</h5>
+            <h1 class="pb-2 fs-2 border-bottom border-2"
+              >No Lemon No Melon App</h1
+            >
+            <h2>getValues Function</h2>
             <p
-              >Hello World is a function that displays an alert with a message
-              called 'Hello World!'</p
+              >To use the getValues function, we get the input value that the
+              user types in, then we pass it along to the isPalindromCheck
+              function. Once that function returns a result, we pass it to the
+              displayResults function.</p
+            >
+            <h2>palindromeCheck Function</h2>
+            <p
+              >The palindromeCheck function takes the input value and assigns it
+              to the declared formattedString variable for manipulation. First,
+              we make the string all lowercase, then re-remove everything that
+              doesn’t match the RegEx expression we supplied. Once done, we
+              split each letter in the string, put it into an array, reverse the
+              array, and join each letter back into a string for comparison. If
+              the reversed string equals the formatted string, then it is a
+              palindrome and will return true. Otherwise it will return
+              false.</p
+            >
+            <h2>displayResults</h2>
+            <p
+              >Once we know if we have a palindrome, we send it to the
+              displayResults function to let the user know. If the phrase is a
+              palindrome, the user will receive a success message, otherwise the
+              user will receive a warning message.</p
             >
           </div>
         </div>

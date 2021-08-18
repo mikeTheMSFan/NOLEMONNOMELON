@@ -1,6 +1,6 @@
 :root {
   --primary-color: #423417;
-  --secondary-color: #ecc97e;
+  --secondary-color: #00c2cb;
   --dark-color: #292929;
   --white-color: #dff3e4;
 }
@@ -85,6 +85,17 @@ pre[class*='language-'] {
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
+}
+
+.logo,
+.title {
+  font-family: 'Amatic SC', cursive;
+  font-weight: bolder;
+}
+
+#btnSubmit {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
 }
 
 @media only screen and (min-width: 992px) {
