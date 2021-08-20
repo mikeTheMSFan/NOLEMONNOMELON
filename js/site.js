@@ -3,43 +3,55 @@
 //Get values from UI
 function getValues() {
   const inputValue = document.getElementById('userString').value;
-  const isPalindromeCheck = palindromeCheck(inputValue);
-  displayResults(isPalindromeCheck);
+  const returnObj = palindromeCheck(inputValue);
+  displayResults(returnObj);
 }
+
 //Check to see if word is palindrome
 function palindromeCheck(inputVal) {
-  //Matches anything that is A-Z, a-z, and 0-9. Also searches globally.
+  //Matches anything that is A-Z, a-z, and 0-9, everything else is removed. Also searches globally.
   const sub = /[^A-Za-z0-9]/g;
 
-  //Assigns input string for parsing
-  let formattedString = inputVal;
   //Changes all letters to lower case
-  formattedString = formattedString.toLowerCase();
+  inputVal = inputVal.toLowerCase();
+
   //Uses the regEx expression to remove anything that doesnt match.
-  formattedString = formattedString.replace(sub, '');
+  inputVal = inputVal.replace(sub, '');
 
   //splits the formmating string into an array of characters, reverses the array,
   //and joins the reverse array to form the reversed string
-  const reverseFormattedString = formattedString.split('').reverse('').join('');
+  const reverseFormattedString = inputVal.split('').reverse('').join('');
 
-  //returns true or false based on the result of the comparison.
-  return formattedString === reverseFormattedString;
+  //object to store the return message and reverse string.
+  const resultObj = {};
+
+  if (inputVal === reverseFormattedString) {
+    resultObj.msg = `Great! You're value is a palindrome! 🎉🎉🎉🎉`;
+  } else {
+    resultObj.msg = `Oh no! You're value is Not a palindrome. 😟😟😟😟`;
+  }
+
+  resultObj.returnString = reverseFormattedString;
+
+  return resultObj;
 }
-//Display result to user
-function displayResults(isPal) {
-  if (isPal) {
-    document.getElementById('msg').innerHTML = `A palindrome! 🎉🎉🎉🎉`;
 
-    //show the alert box
+//Display result to user
+function displayResults(obj) {
+  if (obj.msg.includes('Great!')) {
+    //show the success alert box
     document.getElementById('alert').classList.remove('alert-danger');
     document.getElementById('alert').classList.add('alert-success');
     document.getElementById('alert').classList.remove('invisible');
   } else {
-    document.getElementById('msg').innerHTML = `Not a palindrome 😟😟😟😟`;
-
-    //show the alert box
+    //show the danger box
     document.getElementById('alert').classList.remove('alert-success');
     document.getElementById('alert').classList.add('alert-danger');
     document.getElementById('alert').classList.remove('invisible');
   }
+
+  document.getElementById('alert-heading').innerHTML = `${obj.msg}`;
+  document.getElementById(
+    'msg'
+  ).innerHTML = `Your string reversed is: ${obj.returnString}`;
 }

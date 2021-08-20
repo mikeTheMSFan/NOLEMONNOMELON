@@ -138,46 +138,59 @@
                     //Get values from UI
                     function getValues() {
                       const inputValue = document.getElementById('userString').value;
-                      const isPalindromeCheck = palindromeCheck(inputValue);
-                      displayResults(isPalindromeCheck);
+                      const returnObj = palindromeCheck(inputValue);
+                      displayResults(returnObj);
                     }
+                    
                     //Check to see if word is palindrome
                     function palindromeCheck(inputVal) {
-                      //Matches anything that is A-Z, a-z, and 0-9. Also searches globally.
+                      //Matches anything that is A-Z, a-z, and 0-9, everything else is removed. Also searches globally.
                       const sub = /[^A-Za-z0-9]/g;
                     
-                      //Takes the array and turns it into a string for parsing
-                      let formattedString = inputVal;
                       //Changes all letters to lower case
-                      formattedString = formattedString.toLowerCase();
+                      inputVal = inputVal.toLowerCase();
+                    
                       //Uses the regEx expression to remove anything that doesnt match.
-                      formattedString = formattedString.replace(sub, '');
+                      inputVal = inputVal.replace(sub, '');
                     
                       //splits the formmating string into an array of characters, reverses the array,
                       //and joins the reverse array to form the reversed string
-                      const reverseFormattedString = formattedString.split('').reverse('').join('');
+                      const reverseFormattedString = inputVal.split('').reverse('').join('');
                     
-                      //returns true or false based on the result of the comparison.
-                      return formattedString === reverseFormattedString;
+                      //object to store the return message and reverse string.
+                      const resultObj = {};
+                    
+                      if (inputVal === reverseFormattedString) {
+                        resultObj.msg = `Great! You're value is a palindrome! 🎉🎉🎉🎉`;
+                      } else {
+                        resultObj.msg = `Oh no! You're value is Not a palindrome. 😟😟😟😟`;
+                      }
+                    
+                      resultObj.returnString = reverseFormattedString;
+                    
+                      return resultObj;
                     }
-                    //Display result to user
-                    function displayResults(isPal) {
-                      if (isPal) {
-                        document.getElementById('msg').innerHTML = `A palindrome! 🎉🎉🎉🎉`;
                     
-                        //show the alert box
+                    //Display result to user
+                    function displayResults(obj) {
+                      if (obj.msg.includes('Great!')) {
+                        //show the success alert box
                         document.getElementById('alert').classList.remove('alert-danger');
                         document.getElementById('alert').classList.add('alert-success');
                         document.getElementById('alert').classList.remove('invisible');
                       } else {
-                        document.getElementById('msg').innerHTML = `Not a palindrome 😟😟😟😟`;
-                    
-                        //show the alert box
+                        //show the danger box
                         document.getElementById('alert').classList.remove('alert-success');
                         document.getElementById('alert').classList.add('alert-danger');
                         document.getElementById('alert').classList.remove('invisible');
                       }
-                    }                                        
+                    
+                      document.getElementById('alert-heading').innerHTML = `${obj.msg}`;
+                      document.getElementById(
+                        'msg'
+                      ).innerHTML = `Your string reversed is: ${obj.returnString}`;
+                    }
+                                                            
                   </code>
               </pre>
           </div>
@@ -194,22 +207,25 @@
             >
             <h2>palindromeCheck Function</h2>
             <p
-              >The palindromeCheck function takes the input value and assigns it
-              to the declared formattedString variable for manipulation. First,
-              we make the string all lowercase, then re-remove everything that
-              doesn’t match the RegEx expression we supplied. Once done, we
-              split each letter in the string, put it into an array, reverse the
-              array, and join each letter back into a string for comparison. If
-              the reversed string equals the formatted string, then it is a
-              palindrome and will return true. Otherwise it will return
-              false.</p
+              >In the palindromeCheck function, we first declare a variable
+              named sub that holds our RegEx expression. Then we take the input
+              passed in, and change each letter to lowercase. Next, we run the
+              replace method on the string using our RegEx variable. Anything
+              that doesn’t match, we replace with an empty string. With this
+              clean string, we split each letter and put it into an array,
+              reverse the array, and join each letter back into a string for
+              comparison. The message in the object will change considering if
+              the string is a palindrome or not. Once we’ve stored the message,
+              we add the reverse string and return the object to the caller.</p
             >
             <h2>displayResults</h2>
             <p
-              >Once we know if we have a palindrome, we send it to the
-              displayResults function to let the user know. If the phrase is a
-              palindrome, the user will receive a success message, otherwise the
-              user will receive a warning message.</p
+              >The displayResults function will check to see if the message
+              contains a part of the success message. If it does, it will set
+              the alert element to the success color before displaying the
+              message. Otherwise we choose the color of danger. With the color
+              set, it will display the right message along with the string used
+              to make that determination.</p
             >
           </div>
         </div>
